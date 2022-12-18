@@ -25,10 +25,10 @@ class Solution {
                      continue;
                  }
                  int up = Integer.MAX_VALUE;
-                 int down = Integer.MAX_VALUE;
+                 int left = Integer.MAX_VALUE;
                  if(i>0) up = dp[i-1][j];
-                 if(j>0) down = dp[i][j-1];
-                 dp[i][j] = grid[i][j] + Math.min(up, down);
+                 if(j>0) left = dp[i][j-1];
+                 dp[i][j] = grid[i][j] + Math.min(up, left);
              }
          }
         return dp[m-1][n-1];

@@ -20,8 +20,25 @@ class Solution {
         }
         arr[0] = 1;
         arr[n+1] = 1;
-        Integer[][] dp = new Integer[n+2][n+2];
-        return f(1 ,n, arr, dp);
+        // Integer[][] dp = new Integer[n+2][n+2];
+        int[][] dp = new int[n+2][n+2];
+        //Tabulation
+        for(int i = n; i>0; i--)
+        {
+            for(int j = 1; j<=n; j++)
+            {
+                if(i>j) continue;
+                int maxi = Integer.MIN_VALUE;
+                for(int ind = i; ind <= j; ind++)
+                {
+                    int cost = arr[i-1] * arr[ind] * arr[j+1] + dp[i][ind-1] + dp[ind+1][j];
+                    maxi = Math.max(maxi, cost);
+                }
+                dp[i][j] = maxi;
+            }
+        }
+        return dp[1][n];
+        // return f(1 ,n, arr, dp);
         // System.out.println(Arrays.toString(arr));
         // return 1;
     }

@@ -1,22 +1,38 @@
 class Solution {
     public int maxVowels(String s, int k) {
-        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
+        int vowelsCount=0;
         
-        // Build the window of size k, count the number of vowels it contains.
-        int count = 0;
-        for (int i = 0; i < k; i++) {
-            count += vowels.contains(s.charAt(i)) ? 1 : 0;
+        Set<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+        
+        for(int i=0; i<k; i++)
+        {
+            if(set.contains(s.charAt(i)))
+            {
+                // System.out.print(i+"->"+s.charAt(i)+"->");
+                vowelsCount++;
+            }
         }
-        int answer = count;
-        
-        // Slide the window to the right, focus on the added character and the
-        // removed character and update "count". Record the largest "count".
-        for (int i = k; i < s.length(); i++) {
-            count += vowels.contains(s.charAt(i)) ? 1 : 0;
-            count -= vowels.contains(s.charAt(i - k)) ? 1 : 0;
-            answer = Math.max(answer, count);
+        // System.out.println(vowelsCount);
+        int n = s.length();
+        int maxCount=vowelsCount;
+        for(int i=k; i<n; i++)
+        {
+            if(set.contains(s.charAt(i-k)))
+            {
+                vowelsCount--;
+            }
+            if(set.contains(s.charAt(i)))
+            {
+                vowelsCount++;
+            }
+            maxCount=Math.max(maxCount,vowelsCount);
         }
-        
-        return answer;
+        // System.out.println(n);
+        return maxCount;
     }
 }

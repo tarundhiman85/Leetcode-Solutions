@@ -10,9 +10,10 @@ class Solution {
                  int profit = 0;
                  if(buy==1)
                  {
+                                            //buying the stock                //skip with buy 1 needs to buy
                      dp[ind][buy] = Math.max(-prices[ind]-fee+dp[ind+1][0],  dp[ind+1][1]);
                  }
-                 else{
+                 else{                      //selling the stock                //skip with buy 0 nneds to sell
                      dp[ind][buy] = Math.max(prices[ind]+dp[ind+1][1], dp[ind+1][0]);
                  }
             }

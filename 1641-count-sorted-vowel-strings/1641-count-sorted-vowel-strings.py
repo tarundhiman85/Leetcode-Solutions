@@ -15,5 +15,15 @@ class Solution:
 
     def countVowelStrings(self, n: int) -> int:
         vow = ['a', 'e', 'i', 'o', 'u']
-        memo = [[-1] * len(vow) for _ in range(n + 1)]
-        return self.f(n, n, vow, 0, memo)
+        dp = [[0] * (len(vow) + 1) for _ in range(n + 1)]
+        
+        # Initialize base cases
+        for i in range(len(vow) + 1):
+            dp[0][i] = 1
+        
+        # Fill the dp table
+        for c in range(1, n + 1):
+            for k in range(len(vow) - 1, -1, -1):
+                dp[c][k] = dp[c][k + 1] + dp[c - 1][k]
+        
+        return dp[n][0]

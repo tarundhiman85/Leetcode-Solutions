@@ -1,22 +1,14 @@
 class Solution:
-    def countCompleteSubarrays(self, nums: List[int]) -> int:
-        
-        n = len(nums)
-        i = 0
-        j = 0
-        
-        st = set()
-        for k in range(n):
-            st.add(nums[k])
-        
-        ans = 0
-        while i<n:
-            chk = set()
-            j = i
-            while j<n:
-                chk.add(nums[j])
-                j += 1
-                if chk == st:
-                    ans += 1
-            i += 1    
-        return ans    
+    def countCompleteSubarrays(self, A: List[int]) -> int:
+        n, k = len(A), len(set(A))
+        res = i = 0
+        count = Counter()
+        for j in range(n):
+            count[A[j]] += 1
+            while len(count) == k:
+                count[A[i]] -= 1
+                if count[A[i]] == 0:
+                    del count[A[i]]
+                i += 1
+            res += i
+        return res
